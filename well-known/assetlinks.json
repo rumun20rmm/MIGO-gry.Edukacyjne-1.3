@@ -1,1 +1,13 @@
 
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.migogryedukacyjne.app",
+      "sha256_cert_fingerprints": [
+        "BB:62:D8:7C:76:04:5C:35:C8:CC:C8:10:84:36:B9:46:49:40:57:BF:1F:FB:CC:68:90:60:F4:1C:AE:5D:24:E1"
+      ]
+    }
+  }
+]
