@@ -1,25 +1,27 @@
 {
-  "short_name": "MIGO.gryEdukacyjne",
+  "short_name": "MIGO",
   "name": "MIGO gryEdukacyjne",
+  "description": "MIGO.gryEdukacyjne to szybka aplikacja z grami edukacyjnymi dla dzieci.",
   "icons": [
     {
-      "src": "MIGO gryEdukacyjne 1.3 192.png",
+      "src": "icon-MIGOgryEdukacyjne-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "MIGO gryEdukacyjne 1.3 512.png",
+      "src": "icon-MIGOgryEdukacyjne-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": "./",
+  "start_url": "./index.html",
   "background_color": "#ffffff",
   "theme_color": "#4f46e5",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "./",
   "id": "com.migogryedukacyjne.app",
-  "description": "MIGO.gryEdukacyje is a fast aplication, game to exercise and learn basic knowledge for children",
   "lang": "pl"
 }
