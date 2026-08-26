@@ -1,0 +1,584 @@
+/* ==========================================================
+   GRY EDUKACYJNE - wspólny styl
+   Dwa motywy (ciemny/jasny) sterowane atrybutem data-motyw na <html>,
+   przełącznik w js/app.js (GRY_APP.przelaczMotyw). Kolor akcentu
+   per gra (--accent-*) jest wspólny dla obu motywów.
+   ========================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+:root {
+    --accent-menu: #a855f7;
+    --accent-czytanie: #ec4899;
+    --accent-pisownia: #3b82f6;
+    --accent-mnozenie: #4ade80;
+
+    /* Motyw CIEMNY (domyślny) */
+    --bg-body: #121212;
+    --bg-container: #1e1e1e;
+    --bg-card: #2a2a2a;
+    --bg-card-active: #333333;
+    --bg-pole-glowne: #151515;
+    --bg-input: #121212;
+    --bg-row-edycja: #222222;
+    --text-primary: #ffffff;
+    --text-secondary: #aaaaaa;
+    --text-muted: #888888;
+    --border-color: #3e3e3e;
+    --shadow-container: 0 12px 32px rgba(0, 0, 0, 0.6);
+    --shadow-card: 0 6px 12px rgba(0, 0, 0, 0.4);
+    --text-shadow-glowna: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+html[data-motyw="jasny"] {
+    --bg-body: #eef0f4;
+    --bg-container: #ffffff;
+    --bg-card: #f1f2f6;
+    --bg-card-active: #e2e4ec;
+    --bg-pole-glowne: #f6f7fb;
+    --bg-input: #ffffff;
+    --bg-row-edycja: #e9ebf1;
+    --text-primary: #1a1a1e;
+    --text-secondary: #5c5f6a;
+    --text-muted: #7a7d87;
+    --border-color: #dcdee6;
+    --shadow-container: 0 12px 32px rgba(20, 20, 40, 0.12);
+    --shadow-card: 0 4px 10px rgba(20, 20, 40, 0.08);
+    --text-shadow-glowna: none;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 15px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--bg-container);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: var(--shadow-container);
+    text-align: center;
+    position: relative;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ---------- Przełącznik motywu jasny/ciemny ---------- */
+.motyw-przelacznik {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.motyw-przelacznik:active {
+    background-color: var(--bg-card-active);
+}
+
+/* ---------- Logo MIGO.apps ---------- */
+.logo-menu {
+    display: block;
+    max-width: 150px;
+    width: 55%;
+    height: auto;
+    margin: 0 auto 16px;
+}
+
+.ekran-naglowek {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-right: 44px; /* miejsce na przełącznik motywu w rogu */
+}
+
+.ekran-naglowek .btn-powrot {
+    margin-bottom: 0;
+}
+
+.logo-ikona-mala {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* ---------- Ekran MENU ---------- */
+#menuScreen h1 {
+    color: var(--accent-menu);
+}
+
+.menu-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.karta-gry {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 18px;
+    padding: 18px;
+    cursor: pointer;
+    text-align: left;
+    transition: transform 0.1s, border-color 0.2s, background-color 0.2s;
+    color: var(--text-primary);
+}
+
+.karta-gry:active {
+    transform: scale(0.97);
+    background-color: var(--bg-card-active);
+}
+
+.karta-gry .ikona-gry {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.karta-gry .tresc-gry {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.karta-gry .tytul-gry {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.karta-gry .opis-gry {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* kolorowanie ramki karty wg gry */
+.karta-gry.kolor-czytanie { border-color: var(--accent-czytanie); }
+.karta-gry.kolor-pisownia { border-color: var(--accent-pisownia); }
+.karta-gry.kolor-mnozenie { border-color: var(--accent-mnozenie); }
+
+/* ---------- Przycisk powrotu (wspólny dla każdej gry) ---------- */
+.btn-powrot {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    cursor: pointer;
+    padding: 6px 4px;
+}
+
+.btn-powrot:active {
+    color: var(--text-primary);
+}
+
+/* ---------- Ekrany gier: kontener + widoczność ---------- */
+.ekran-gry-wrapper {
+    display: none;
+}
+
+.ekran-gry-wrapper.aktywny {
+    display: block;
+}
+
+#menuScreen.ukryty {
+    display: none;
+}
+
+/* ---------- Elementy wspólne dla gier (pole główne, siatki, feedback) ---------- */
+.pole-glowne {
+    background-color: var(--bg-pole-glowne);
+    border: 3px solid var(--accent-gry, #888);
+    border-radius: 20px;
+    padding: 25px 15px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    text-shadow: var(--text-shadow-glowna);
+    letter-spacing: 1px;
+}
+
+.siatka-opcje {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.btn-opcja {
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 12px;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.1s, background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90px;
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+.btn-opcja:active {
+    transform: scale(0.93);
+    background-color: var(--bg-card-active);
+}
+
+.feedback-box {
+    height: 65px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    transition: all 0.2s;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.feedback-box.sukces {
+    background-color: #166534;
+    color: #4ade80;
+    border: 2px solid #22c55e;
+}
+
+.feedback-box.blad {
+    background-color: #991b1b;
+    color: #f87171;
+    border: 2px solid #ef4444;
+}
+
+html[data-motyw="jasny"] .feedback-box.sukces {
+    background-color: #dcfce7;
+    color: #15803d;
+    border-color: #86efac;
+}
+
+html[data-motyw="jasny"] .feedback-box.blad {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border-color: #fca5a5;
+}
+
+/* Kolor tekstu słowa w grze ortografii (neutralny/sukces/błąd) */
+.slowo-neutralny { color: var(--text-primary); }
+.slowo-sukces { color: #4ade80; }
+.slowo-blad { color: #f87171; }
+
+html[data-motyw="jasny"] .slowo-sukces { color: #15803d; }
+html[data-motyw="jasny"] .slowo-blad { color: #b91c1c; }
+
+/* ---------- Przycisk otwarcia edytora (menu główne) ---------- */
+.btn-edytor {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    background: none;
+    border: 2px dashed var(--border-color);
+    border-radius: 14px;
+    padding: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-edytor:active {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* ---------- Edytor słów i obrazków ---------- */
+.editor-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.editor-select,
+.editor-search,
+.editor-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    font-size: 0.95rem;
+}
+
+.editor-dodaj-details {
+    background-color: var(--bg-card);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.editor-dodaj-details summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--accent-menu);
+    font-size: 0.95rem;
+}
+
+.editor-label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-align: left;
+}
+
+.editor-info {
+    min-height: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.editor-info-ok { color: #4ade80; }
+.editor-info-blad { color: #f87171; }
+.editor-info-ostrzezenie { color: #fbbf24; }
+
+html[data-motyw="jasny"] .editor-info-ok { color: #15803d; }
+html[data-motyw="jasny"] .editor-info-blad { color: #b91c1c; }
+html[data-motyw="jasny"] .editor-info-ostrzezenie { color: #b45309; }
+
+.editor-licznik {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.editor-lista {
+    max-height: 55vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    text-align: left;
+    margin-bottom: 14px;
+}
+
+.editor-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+}
+
+.editor-row-ikona {
+    font-size: 1.6rem;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editor-row-tekst {
+    flex: 1;
+    font-size: 0.95rem;
+    word-break: break-word;
+}
+
+.editor-row-detal {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.editor-row-edycja {
+    display: block;
+    background-color: var(--bg-row-edycja);
+    border: 1px solid var(--border-color);
+}
+
+.editor-row-akcje {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-small {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    padding: 6px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.btn-small:active {
+    opacity: 0.6;
+}
+
+.btn-dodaj {
+    width: 100%;
+    margin-top: 10px;
+    background-color: var(--accent-menu);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-anuluj {
+    flex: 1;
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.editor-row-akcje .btn-dodaj {
+    flex: 1;
+    margin-top: 0;
+}
+
+.editor-reset {
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* ---------- Picker obrazka (plik z dysku / wklej ze schowka / emoji) ---------- */
+.ikona-picker {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.ikona-podglad {
+    width: 56px;
+    height: 56px;
+    background-color: var(--bg-input);
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.ikona-podglad img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ikona-przyciski {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-mini {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 9px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-mini:active {
+    opacity: 0.7;
+}
+
+.ikona-wklej {
+    flex: 1;
+    min-width: 140px;
+    background-color: var(--bg-card);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 9px 10px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    text-align: center;
+    cursor: text;
+    outline: none;
+}
+
+.ikona-wklej:focus {
+    border-color: var(--accent-menu);
+    color: var(--text-primary);
+}
+
+.ikona-tekst {
+    margin-top: 0;
+}
+
+.editor-plik-akcje {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.editor-plik-akcje .btn-mini {
+    flex: 1;
+}
+
+.editor-wiecej {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    text-align: center;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIGO gryEdukacyjne</title>
+    <link rel="icon" type="image/png" href="assets/logo-ikona.png">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Ustawienie motywu PRZED wyrenderowaniem strony, żeby uniknąć
+         "mignięcia" złego motywu przy starcie (np. jasny na ułamek sekundy
+         zanim JS w app.js zdąży przełączyć na zapisany ciemny). -->
+    <script>
+        (function () {
+            try {
+                var zapisany = localStorage.getItem("migo-gryedukacyjne-motyw");
+                var motyw = zapisany ? JSON.parse(zapisany) : null;
+                if (!motyw) {
+                    var preferujeJasny = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+                    motyw = preferujeJasny ? "jasny" : "ciemny";
+                }
+                document.documentElement.setAttribute("data-motyw", motyw);
+            } catch (e) {
+                document.documentElement.setAttribute("data-motyw", "ciemny");
+            }
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="app-container">
+        <button class="motyw-przelacznik" id="motywPrzelacznik" onclick="GRY_APP.przelaczMotyw()" aria-label="Przełącz motyw jasny/ciemny">🌙</button>
+
+        <!-- ============ MENU GŁÓWNE ============ -->
+        <div id="menuScreen">
+            <img class="logo-menu" src="assets/logo-pelne.png" alt="MIGO.apps">
+            <h1>MIGO gryEdukacyjne</h1>
+            <div class="menu-lista" id="menuLista">
+                <!-- karty gier generowane automatycznie przez js/app.js -->
+            </div>
+            <button class="btn-edytor" onclick="GRY_APP.otworzEdytor()">⚙️ Edytor słów i obrazków</button>
+        </div>
+
+        <!-- ============ EKRANY GIER ============ -->
+
+        <!-- Nauka Czytania -->
+        <div class="ekran-gry-wrapper" id="ekran-czytanie">
+            <div class="ekran-naglowek">
+                <button class="btn-powrot" onclick="GRY_APP.wrocDoMenu()">← Menu</button>
+                <img class="logo-ikona-mala" src="assets/logo-ikona.png" alt="MIGO.apps">
+            </div>
+            <h1 style="color:var(--accent-czytanie);">Nauka Czytania</h1>
+            <div id="kontener-czytanie"></div>
+        </div>
+
+        <!-- Mistrz Ortografii -->
+        <div class="ekran-gry-wrapper" id="ekran-pisownia">
+            <div class="ekran-naglowek">
+                <button class="btn-powrot" onclick="GRY_APP.wrocDoMenu()">← Menu</button>
+                <img class="logo-ikona-mala" src="assets/logo-ikona.png" alt="MIGO.apps">
+            </div>
+            <h1 style="color:var(--accent-pisownia);">Mistrz Ortografii</h1>
+            <div id="kontener-pisownia"></div>
+        </div>
+
+        <!-- Tabliczka Mnożenia -->
+        <div class="ekran-gry-wrapper" id="ekran-mnozenie">
+            <div class="ekran-naglowek">
+                <button class="btn-powrot" onclick="GRY_APP.wrocDoMenu()">← Menu</button>
+                <img class="logo-ikona-mala" src="assets/logo-ikona.png" alt="MIGO.apps">
+            </div>
+            <h1 style="color:var(--accent-mnozenie);">Tabliczka Mnożenia</h1>
+            <div id="kontener-mnozenie"></div>
+        </div>
+
+        <!-- Edytor słów i obrazków -->
+        <div class="ekran-gry-wrapper" id="ekran-edytor">
+            <div class="ekran-naglowek">
+                <button class="btn-powrot" onclick="GRY_APP.wrocDoMenu()">← Menu</button>
+                <img class="logo-ikona-mala" src="assets/logo-ikona.png" alt="MIGO.apps">
+            </div>
+            <h1 style="color:var(--accent-menu);">Edytor słów i obrazków</h1>
+            <div id="kontener-edytor"></div>
+        </div>
+
+    </div>
+
+    <!-- funkcje pomocnicze i zapis - muszą być załadowane PRZED modułami gier -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+
+    <!-- moduły gier (każdy rejestruje się w window.GRY_MODULES) -->
+    <script src="js/games/czytanie.js"></script>
+    <script src="js/games/pisownia.js"></script>
+    <script src="js/games/mnozenie.js"></script>
+
+    <!-- edytor haseł/obrazków (operuje na window.GRY_MODULES) -->
+    <script src="js/editor.js"></script>
+
+    <!-- router / menu - musi być ładowany na końcu -->
+    <script src="js/app.js"></script>
+</body>
+</html>
